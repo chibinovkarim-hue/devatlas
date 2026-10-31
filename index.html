@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DevAtlas — справочник разработчика</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c9cff'/%3E%3Cstop offset='1' stop-color='%23c084fc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M10 11l-4 5 4 5M22 11l4 5-4 5M18 9l-4 14' stroke='white' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#070913;--text:#e8ecff;--dim:#98a2c8;--line:rgba(255,255,255,.09);--glass:rgba(255,255,255,.045);--a:#7c9cff;--b:#c084fc;--c:#7c9cff}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;line-height:1.55;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+code,kbd,.mono{font-family:"JetBrains Mono","Cascadia Code","Fira Code",Consolas,monospace}
+::selection{background:rgba(124,156,255,.4)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:10px}
+
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;background:radial-gradient(1200px 700px at 50% -10%,#151b48 0%,transparent 60%),var(--bg)}
+.aurora::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 15%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000 15%,transparent 75%)}
+.blob{position:absolute;border-radius:50%;filter:blur(95px);will-change:transform}
+.b1{width:540px;height:540px;left:-140px;top:-100px;background:#4a5cff;opacity:.5;animation:d1 22s ease-in-out infinite alternate}
+.b2{width:480px;height:480px;right:-120px;top:14%;background:#b04cff;opacity:.42;animation:d2 27s ease-in-out infinite alternate}
+.b3{width:560px;height:560px;left:28%;bottom:-260px;background:#19c3b0;opacity:.3;animation:d3 31s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate(220px,140px) scale(1.18)}}
+@keyframes d2{to{transform:translate(-200px,160px) scale(1.12)}}
+@keyframes d3{to{transform:translate(-240px,-90px) scale(1.2)}}
+#fx{position:fixed;inset:0;z-index:1;pointer-events:none}
+.glow{position:fixed;width:560px;height:560px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(124,156,255,.13),transparent 62%);transform:translate(-50%,-50%);left:50%;top:40%}
+
+.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);background:linear-gradient(rgba(7,9,19,.78),rgba(7,9,19,.4));border-bottom:1px solid var(--line)}
+.top-in{max-width:1200px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:19px;letter-spacing:.2px}
+.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--a),var(--b));display:grid;place-items:center;box-shadow:0 6px 26px rgba(124,156,255,.5)}
+.logo svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+nav{display:flex;gap:4px}
+nav a{padding:8px 15px;border-radius:11px;color:var(--dim);font-size:14px;font-weight:500;transition:.2s}
+nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav a.on{color:#fff;background:rgba(255,255,255,.1)}
+
+.shell{position:relative;z-index:2;max-width:1200px;margin:auto;padding:26px 24px 90px}
+.view{animation:enter .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes enter{from{opacity:0;transform:translateY(20px) scale(.99);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+
+.btn{position:relative;display:inline-flex;align-items:center;gap:11px;padding:17px 30px;border-radius:17px;font-weight:600;font-size:16px;border:1px solid var(--line);color:#fff;cursor:pointer;background:var(--glass);backdrop-filter:blur(12px);transition:transform .25s,box-shadow .25s,border-color .25s;overflow:hidden}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-130%);transition:transform .75s}
+.btn:hover::after{transform:translateX(130%)}
+.btn:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.3);box-shadow:0 16px 44px rgba(0,0,0,.45)}
+.btn:active{transform:scale(.97)}
+.btn.pri{border:none;background:linear-gradient(120deg,var(--a),var(--b));box-shadow:0 12px 38px rgba(124,156,255,.42)}
+.btn.pri:hover{box-shadow:0 18px 52px rgba(170,120,255,.6)}
+.btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn.sm{padding:10px 18px;font-size:14px;border-radius:13px}
+
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;min-height:calc(100vh - 160px)}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;background:var(--glass);border:1px solid var(--line);font-size:13px;color:var(--dim)}
+.chip i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 12px #34d399;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+h1.big{font-size:clamp(46px,7.4vw,100px);line-height:1;letter-spacing:-2.5px;font-weight:800;margin:24px 0 22px;background:linear-gradient(100deg,#fff 0%,#a9b8ff 30%,#d6a8ff 55%,#7ef0dc 80%,#fff 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 9s linear infinite}
+@keyframes shine{to{background-position:-220% 0}}
+.lead{font-size:19px;color:var(--dim);max-width:540px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin:36px 0 38px}
+.stats{display:flex;gap:40px;flex-wrap:wrap}
+.stat b{font-size:32px;display:block;line-height:1.1}
+.stat span{font-size:13px;color:var(--dim)}
+
+.stage{perspective:1300px;position:relative}
+.show{position:relative;border-radius:28px;padding:22px;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 44px 110px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.16);transform-style:preserve-3d;transition:transform .18s ease-out}
+.dots{display:flex;gap:7px;margin-bottom:14px;align-items:center}
+.dots i{width:11px;height:11px;border-radius:50%}
+.dots span{margin-left:10px;font-size:12px;color:var(--dim)}
+.codeblk{margin-top:14px;padding:14px 16px;border-radius:14px;background:#050712;border:1px solid rgba(255,255,255,.07);font-size:12.5px;line-height:1.8}
+.float{position:absolute;padding:10px 15px;border-radius:13px;font-size:13px;font-weight:600;background:rgba(12,16,40,.88);border:1px solid rgba(255,255,255,.15);box-shadow:0 16px 38px rgba(0,0,0,.5);animation:fl 6s ease-in-out infinite;transform:translateZ(70px)}
+.float.f1{left:-26px;top:70px}
+.float.f2{right:-22px;top:190px;animation-delay:-2s}
+.float.f3{left:34px;bottom:-24px;animation-delay:-4s}
+@keyframes fl{50%{translate:0 -12px}}
+
+.page-h{margin:34px 0 30px}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--dim);font-size:14px;margin-bottom:20px;cursor:pointer;transition:.2s;padding:6px 12px 6px 8px;border-radius:10px;border:0;background:none}
+.back:hover{color:#fff;background:rgba(255,255,255,.07)}
+.back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.page-h h2{font-size:clamp(34px,4.6vw,56px);letter-spacing:-1.2px;line-height:1.08}
+.page-h p{color:var(--dim);max-width:660px;margin-top:12px;font-size:17px}
+.grad{background:linear-gradient(100deg,var(--c),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grid{display:grid;gap:20px}
+.g3{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.panel{border-radius:24px;padding:28px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.panel h3{font-size:19px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.panel h3 i{width:9px;height:9px;border-radius:3px;background:var(--c);box-shadow:0 0 14px var(--c)}
+.panel p{color:var(--dim)}
+.panel ul{list-style:none;padding:0;display:grid;gap:10px}
+.panel li{display:flex;gap:12px;color:#cfd6f5;font-size:15px}
+.panel li::before{content:"";flex:none;width:7px;height:7px;margin-top:9px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+.panel li.dl::before{display:none}
+.panel li.dl{align-items:flex-start}
+.panel li.dl i{flex:none;width:10px;height:10px;margin-top:7px;border-radius:3px}
+.panel li.dl span{color:var(--dim);display:block;font-size:13.5px}
+.steps{counter-reset:s}
+.steps li::before{counter-increment:s;content:counter(s);width:26px;height:26px;margin:0;border-radius:9px;background:linear-gradient(135deg,var(--a),var(--b));display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff;box-shadow:none}
+kbd{padding:3px 9px;border-radius:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-bottom-width:2px;font-size:12.5px;color:#fff}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{padding:6px 13px;border-radius:999px;font-size:13px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#dfe5ff}
+
+.card{position:relative;padding:30px;border-radius:26px;background:var(--glass);border:1px solid var(--line);cursor:pointer;overflow:hidden;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .4s;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:block;animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(440px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--c) 28%,transparent),transparent 62%);opacity:0;transition:opacity .35s}
+.card:hover{transform:translateY(-9px);border-color:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 30px 70px color-mix(in srgb,var(--c) 22%,transparent)}
+.card:hover::before{opacity:1}
+.card>*{position:relative}
+.ico{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 17%,transparent);border:1px solid color-mix(in srgb,var(--c) 42%,transparent);color:var(--c);margin-bottom:22px;box-shadow:0 0 34px color-mix(in srgb,var(--c) 26%,transparent)}
+.ico svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:23px;margin-bottom:9px;letter-spacing:-.3px}
+.card p{color:var(--dim);font-size:15px}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:24px;font-size:13px;color:var(--dim)}
+.meta b{padding:5px 12px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);font-weight:600}
+.arrow{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);transition:.3s}
+.arrow svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.card:hover .arrow{background:var(--c);border-color:transparent;transform:translateX(4px)}
+.card .num{position:absolute;right:22px;top:20px;font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:7px;padding:2px 8px}
+
+.sbox{position:relative;margin:0 0 26px}
+.sbox input{width:100%;padding:18px 20px 18px 54px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.05);backdrop-filter:blur(14px);color:#fff;font-size:16px;font-family:inherit;outline:none;transition:.25s}
+.sbox input:focus{border-color:color-mix(in srgb,var(--c) 70%,transparent);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent)}
+.sbox svg{position:absolute;left:19px;top:50%;translate:0 -50%;width:21px;height:21px;stroke:var(--dim);fill:none;stroke-width:2;stroke-linecap:round}
+.sbox kbd{position:absolute;right:16px;top:50%;translate:0 -50%}
+.res{display:flex;align-items:center;gap:14px;padding:13px 18px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);transition:.2s;margin-bottom:8px}
+.res:hover{background:rgba(255,255,255,.09);transform:translateX(5px);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.res i{width:10px;height:10px;border-radius:3px;background:var(--c);box-shadow:0 0 12px var(--c);flex:none}
+.res code{font-size:13.5px;color:#fff;min-width:140px}
+.res span{color:var(--dim);font-size:14px;flex:1}
+.res em{font-style:normal;font-size:12px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);padding:2px 9px;border-radius:999px}
+.sec-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.pill{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--dim);font-size:13.5px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.pill:hover{color:#fff;background:rgba(255,255,255,.09)}
+.pill.on{color:#fff;background:color-mix(in srgb,var(--c) 26%,transparent);border-color:color-mix(in srgb,var(--c) 60%,transparent)}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+
+.grp{margin-bottom:36px}
+.gh{display:flex;align-items:center;gap:12px;font-size:20px;margin-bottom:16px;letter-spacing:-.2px}
+.gh i{width:10px;height:26px;border-radius:4px;background:var(--gc,var(--c));box-shadow:0 0 18px var(--gc,var(--c))}
+.gh small{font-size:13px;color:var(--dim);font-weight:400}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.03);backdrop-filter:blur(10px)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
+th{font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);text-align:left;padding:15px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.035);font-weight:600}
+td{padding:13px 18px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
+tr:last-child td{border-bottom:0}
+tbody tr{transition:background .2s}
+tbody tr:hover{background:rgba(255,255,255,.045)}
+td:first-child{font-weight:600;color:#fff}
+.bd{display:inline-block;padding:3px 11px;border-radius:9px;font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;border:1px solid color-mix(in srgb,var(--t) 40%,transparent);color:var(--t);background:color-mix(in srgb,var(--t) 13%,transparent);white-space:nowrap}
+.yes{color:#34d399}.no{color:#f87171}.nil{color:var(--dim)}
+
+.cmd{padding:16px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid var(--line);transition:.28s;animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.cmd:hover{border-color:color-mix(in srgb,var(--c) 55%,transparent);transform:translateY(-3px);background:rgba(255,255,255,.055)}
+.cc{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;padding:13px 14px;border-radius:12px;background:#050712;border:1px solid rgba(255,255,255,.07)}
+.cc code{font-size:13.5px;white-space:pre-wrap;word-break:break-word;color:#dfe5ff;line-height:1.65}
+.cmd p{margin-top:11px;color:var(--dim);font-size:14.5px}
+.cp{flex:none;width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--dim);cursor:pointer;display:grid;place-items:center;transition:.2s}
+.cp:hover{color:#fff;background:var(--c);border-color:transparent;transform:scale(1.08)}
+.cp svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+code i{font-style:normal}
+.k{color:#c792ea}.s{color:#c3e88d}.f{color:#ffcb6b}.c{color:#82aaff;font-weight:600}.sub{color:#f78c6c}
+
+.hc{display:flex;gap:16px;padding:16px 18px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid var(--line);transition:.28s;animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.hc:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--h) 60%,transparent);background:color-mix(in srgb,var(--h) 7%,transparent)}
+.hc b{font-size:26px;color:var(--h);text-shadow:0 0 22px color-mix(in srgb,var(--h) 60%,transparent);min-width:64px;line-height:1.2}
+.hc h4{font-size:16px;margin-bottom:3px}
+.hc p{color:var(--dim);font-size:14px}
+
+.chart{border-radius:24px;padding:20px 22px 12px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid var(--line);margin-bottom:36px}
+.chart svg{width:100%;height:auto;display:block}
+.curve{fill:none;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.4s cubic-bezier(.3,.7,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;padding:6px 6px 12px;font-size:13px}
+.legend span{display:flex;align-items:center;gap:8px;color:#cfd6f5}
+.legend i{width:22px;height:4px;border-radius:3px}
+
+.tester{margin-bottom:36px}
+.row{display:grid;grid-template-columns:1fr 120px;gap:14px;margin-bottom:14px}
+.tester input,.tester textarea{width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#050712;color:#fff;font-family:"JetBrains Mono",Consolas,monospace;font-size:14px;outline:none;transition:.2s;resize:vertical}
+.tester input:focus,.tester textarea:focus{border-color:color-mix(in srgb,var(--c) 70%,transparent);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 16%,transparent)}
+.tester label{display:block;font-size:12px;letter-spacing:.8px;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+.out{margin-top:16px;padding:16px;border-radius:14px;background:#050712;border:1px solid var(--line);white-space:pre-wrap;word-break:break-word;font-family:"JetBrains Mono",Consolas,monospace;font-size:14px;min-height:56px}
+.out mark{background:color-mix(in srgb,var(--c) 38%,transparent);color:#fff;border-radius:5px;padding:1px 3px;box-shadow:0 0 0 1px color-mix(in srgb,var(--c) 70%,transparent)}
+.rxi{margin-top:12px;font-size:13.5px;color:var(--dim)}
+.rxi b{color:#fff}
+.err{color:#f87171}
+.venns{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:36px}
+.vn{padding:18px;border-radius:20px;background:rgba(255,255,255,.035);border:1px solid var(--line);text-align:center;transition:.3s}
+.vn:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.vn svg{width:120px;height:auto;margin-bottom:10px}
+.vn h4{font-size:15px;margin-bottom:5px;font-family:"JetBrains Mono",Consolas,monospace}
+.vn p{font-size:13px;color:var(--dim)}
+.empty{text-align:center;padding:50px;color:var(--dim);border:1px dashed var(--line);border-radius:20px}
+.toast{position:fixed;left:50%;bottom:34px;translate:-50% 30px;opacity:0;padding:12px 22px;border-radius:14px;background:rgba(20,26,60,.95);border:1px solid rgba(255,255,255,.18);box-shadow:0 16px 44px rgba(0,0,0,.5);z-index:60;transition:.35s;pointer-events:none;font-size:14px}
+.toast.on{translate:-50% 0;opacity:1}
+footer{position:relative;z-index:2;text-align:center;color:var(--dim);font-size:13px;padding:0 24px 40px}
+
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:40px;min-height:0;padding-top:20px}.float{display:none}nav a{padding:8px 10px}.brand span{display:none}.row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="aurora"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
+<canvas id="fx"></canvas>
+<div class="glow" id="glow"></div>
+<header class="top"><div class="top-in">
+<a class="brand" href="#/"><div class="logo"><svg viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 6l-3 12"/></svg></div><span>DevAtlas</span></a>
+<nav><a href="#/" data-r="home">Главная</a><a href="#/about" data-r="about">О приложении</a><a href="#/menu" data-r="menu">Справочник</a></nav>
+</div></header>
+<main class="shell" id="app"></main>
+<footer>DevAtlas · справочник разработчика · работает офлайн</footer>
+<div class="toast" id="toast">Скопировано</div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const at=s=>esc(s).replace(/"/g,'&quot;');
+
+const IC={
+bigo:'<path d="M3 20V4M3 20h18M7 16c4 0 5-8 9-8s3 4 5 4"/>',
+http:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+git:'<circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 7v10M18 11c0 4-6 3-12 6"/>',
+linux:'<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7 9l3 3-3 3M13 15h4"/>',
+regex:'<path d="M12 4v10M7.5 6.5l9 5M16.5 6.5l-9 5"/><circle cx="12" cy="19" r="1.4"/>',
+sql:'<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+back:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/>',
+book:'<path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM4 19V5"/>',
+search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>'
+};
+const svg=(n,cls='')=>`<svg viewBox="0 0 24 24" class="${cls}">${IC[n]}</svg>`;
+
+const SECTIONS=[
+{id:'bigo',n:'Сложность алгоритмов',d:'График роста O(n), таблицы структур данных и сортировок с оценкой по времени и памяти.',c:'#7c9cff'},
+{id:'http',n:'HTTP-коды',d:'Все основные статус-коды от 1xx до 5xx с понятным объяснением и фильтром по классу.',c:'#34d6c0'},
+{id:'git',n:'Git',d:'Команды для работы с репозиторием, ветками, откатами, поиском ошибок и удалёнными серверами.',c:'#ff8a5c'},
+{id:'linux',n:'Терминал Linux',d:'Файлы, поиск, процессы, сеть, диски и права доступа: то, что нужно каждый день.',c:'#7ee787'},
+{id:'regex',n:'Регулярные выражения',d:'Синтаксис, готовые шаблоны и живой тестер с подсветкой совпадений.',c:'#e879f9'},
+{id:'sql',n:'SQL',d:'Выборки, JOIN с диаграммами, агрегаты, оконные функции, индексы и транзакции.',c:'#ffd166'}
+];
+const SEC=Object.fromEntries(SECTIONS.map(s=>[s.id,s]));
+
+const SORTS=[
+['Пузырьком','O(n)','O(n²)','O(n²)','O(1)',1],
+['Вставками','O(n)','O(n²)','O(n²)','O(1)',1],
+['Выбором','O(n²)','O(n²)','O(n²)','O(1)',0],
+['Слиянием','O(n log n)','O(n log n)','O(n log n)','O(n)',1],
+['Быстрая (quicksort)','O(n log n)','O(n log n)','O(n²)','O(log n)',0],
+['Пирамидальная (heapsort)','O(n log n)','O(n log n)','O(n log n)','O(1)',0],
+['Подсчётом','O(n+k)','O(n+k)','O(n+k)','O(k)',1],
+['Поразрядная (radix)','O(d(n+k))','O(d(n+k))','O(d(n+k))','O(n+k)',1]
+];
+const DS=[
+['Массив','O(1)','O(n)','O(n)','O(n)'],
+['Связный список','O(n)','O(n)','O(1)','O(1)'],
+['Стек / очередь','O(n)','O(n)','O(1)','O(1)'],
+['Хеш-таблица','—','O(1)','O(1)','O(1)'],
+['Двоичное дерево поиска','O(log n)','O(log n)','O(log n)','O(log n)'],
+['Сбалансированное дерево (AVL, красно-чёрное)','O(log n)','O(log n)','O(log n)','O(log n)'],
+['Двоичная куча','—','O(n)','O(log n)','O(log n)']
+];
+const TIPS=[
+['Мало элементов','До нескольких десятков элементов быстрее всего работает сортировка вставками: у неё маленькие константы.'],
+['Нужна гарантия','Сортировка слиянием всегда даёт O(n log n) и устойчива, но требует O(n) дополнительной памяти.'],
+['Универсальный выбор','Быстрая сортировка в среднем самая быстрая на практике. В C++ std::sort построен на introsort.'],
+['Целые в узком диапазоне','Подсчётом и поразрядная сортировки обгоняют сравнивающие алгоритмы, когда ключи ограничены.'],
+['В стандартных библиотеках','Python и Java (для объектов) используют Timsort: он устойчив и очень быстр на частично упорядоченных данных.'],
+['Структура под задачу','Поиск по ключу — хеш-таблица. Упорядоченный обход и диапазоны — сбалансированное дерево. Минимум за O(1) — куча.']
+];
+
+const HTTP=[
+[100,'Continue','Клиент может продолжать отправку тела запроса.'],
+[101,'Switching Protocols','Сервер переключается на другой протокол, например WebSocket.'],
+[200,'OK','Запрос выполнен успешно.'],
+[201,'Created','Ресурс создан, его адрес обычно указан в заголовке Location.'],
+[202,'Accepted','Запрос принят, но обработка ещё не завершена.'],
+[204,'No Content','Успех, но тело ответа пустое.'],
+[206,'Partial Content','Отдана часть ресурса по заголовку Range.'],
+[301,'Moved Permanently','Ресурс навсегда переехал на новый адрес.'],
+[302,'Found','Временное перенаправление на другой адрес.'],
+[303,'See Other','Результат нужно получить отдельным GET-запросом.'],
+[304,'Not Modified','Кэшированная копия актуальна, тело не передаётся.'],
+[307,'Temporary Redirect','Временный редирект с сохранением метода запроса.'],
+[308,'Permanent Redirect','Постоянный редирект с сохранением метода запроса.'],
+[400,'Bad Request','Сервер не смог разобрать запрос из-за неверного синтаксиса.'],
+[401,'Unauthorized','Нужна аутентификация: клиент не представился.'],
+[403,'Forbidden','Доступ запрещён, даже если клиент известен серверу.'],
+[404,'Not Found','Запрошенный ресурс не найден.'],
+[405,'Method Not Allowed','Этот метод не поддерживается для данного ресурса.'],
+[408,'Request Timeout','Сервер не дождался запроса от клиента.'],
+[409,'Conflict','Запрос конфликтует с текущим состоянием ресурса.'],
+[410,'Gone','Ресурс удалён навсегда и больше не вернётся.'],
+[413,'Content Too Large','Тело запроса больше, чем готов принять сервер.'],
+[415,'Unsupported Media Type','Формат тела запроса не поддерживается.'],
+[418,'I’m a teapot','Шуточный код из RFC 2324: чайник не варит кофе.'],
+[422,'Unprocessable Content','Синтаксис верный, но данные не прошли проверку.'],
+[429,'Too Many Requests','Превышен лимит запросов, нужно подождать.'],
+[500,'Internal Server Error','Непредвиденная ошибка на стороне сервера.'],
+[501,'Not Implemented','Сервер не умеет выполнять такой запрос.'],
+[502,'Bad Gateway','Шлюз получил некорректный ответ от вышестоящего сервера.'],
+[503,'Service Unavailable','Сервис временно недоступен: перегрузка или обслуживание.'],
+[504,'Gateway Timeout','Вышестоящий сервер не ответил вовремя.']
+];
+const HC={1:'#7dd3fc',2:'#34d399',3:'#fbbf24',4:'#fb923c',5:'#f87171'};
+const HN={1:'Информационные',2:'Успешные',3:'Перенаправления',4:'Ошибки клиента',5:'Ошибки сервера'};
+
+const GIT=[
+{t:'Начало работы',i:[
+['git init','Создать новый репозиторий в текущей папке.'],
+['git clone <url>','Скопировать удалённый репозиторий к себе.'],
+['git status','Показать изменённые и подготовленные файлы.'],
+['git config --global user.name "Имя"','Задать имя автора для всех репозиториев.']]},
+{t:'Сохранение изменений',i:[
+['git add -p','Выбрать для коммита отдельные куски изменений.'],
+['git commit -m "Сообщение"','Создать коммит из подготовленных изменений.'],
+['git commit --amend','Дополнить или переименовать последний коммит.'],
+['git diff --staged','Показать, что именно попадёт в коммит.']]},
+{t:'Ветки',i:[
+['git switch -c feature','Создать ветку и сразу перейти на неё.'],
+['git switch main','Перейти на другую ветку.'],
+['git merge feature','Влить ветку в текущую.'],
+['git rebase main','Переложить коммиты текущей ветки поверх main.'],
+['git branch -d feature','Удалить уже влитую ветку.'],
+['git cherry-pick <hash>','Перенести один коммит в текущую ветку.']]},
+{t:'Удалённый репозиторий',i:[
+['git fetch','Скачать изменения, не трогая рабочие файлы.'],
+['git pull --rebase','Получить изменения и переложить свои коммиты сверху.'],
+['git push -u origin feature','Отправить ветку и запомнить связь с ней.'],
+['git remote -v','Показать адреса подключённых репозиториев.']]},
+{t:'Отмена и откат',i:[
+['git restore file.txt','Вернуть файл к последнему коммиту.'],
+['git restore --staged file.txt','Убрать файл из подготовленных изменений.'],
+['git reset --soft HEAD~1','Отменить коммит, оставив изменения подготовленными.'],
+['git reset --hard HEAD~1','Отменить коммит и удалить все его изменения.'],
+['git revert <hash>','Создать коммит, который отменяет указанный.'],
+['git reflog','История перемещений HEAD: спасает потерянные коммиты.']]},
+{t:'Поиск и история',i:[
+['git log --oneline --graph --all','Компактный граф всех веток.'],
+['git blame file.txt','Кто и в каком коммите менял каждую строку.'],
+['git bisect start','Начать двоичный поиск коммита, сломавшего код.'],
+['git bisect good <hash>','Отметить коммит как рабочий; затем bad для сломанного.'],
+['git show <hash>','Показать содержимое коммита.']]},
+{t:'Заначка и теги',i:[
+['git stash push -m "wip"','Спрятать незаконченную работу.'],
+['git stash pop','Вернуть спрятанные изменения.'],
+['git tag -a v1.0 -m "Релиз"','Создать аннотированный тег версии.']]}
+];
+
+const LINUX=[
+{t:'Файлы и папки',i:[
+['ls -la','Список файлов с правами и скрытыми.'],
+['cp -r src dst','Копировать папку целиком.'],
+['mv old new','Переместить или переименовать.'],
+['rm -rf dir','Удалить папку без вопросов. Проверяйте путь дважды.'],
+['mkdir -p a/b/c','Создать вложенные папки за один раз.'],
+['ln -s target link','Создать символическую ссылку.']]},
+{t:'Поиск и текст',i:[
+['find . -name "*.log" -mtime -1','Найти логи, изменённые за последние сутки.'],
+['grep -rn "text" .','Найти текст во всех файлах с номерами строк.'],
+['tail -f app.log','Следить за концом файла в реальном времени.'],
+['wc -l file.txt','Посчитать строки в файле.'],
+['sort file | uniq -c | sort -nr','Частота повторов строк по убыванию.'],
+['awk \'{print $1}\' file','Вывести первый столбец каждой строки.'],
+['sed -i \'s/old/new/g\' file','Заменить текст прямо в файле.']]},
+{t:'Процессы',i:[
+['ps aux | grep nginx','Найти процесс по имени.'],
+['top','Загрузка процессора и памяти в реальном времени.'],
+['kill -9 <PID>','Принудительно завершить процесс.'],
+['systemctl status nginx','Состояние службы.'],
+['journalctl -u nginx -f','Журнал службы в реальном времени.']]},
+{t:'Сеть',i:[
+['curl -I https://example.com','Получить только заголовки ответа.'],
+['ss -tulpn','Какие порты слушают какие программы.'],
+['ping -c 4 example.com','Проверить доступность узла.'],
+['ssh user@host','Подключиться к серверу по SSH.'],
+['scp file user@host:/path','Скопировать файл на сервер.']]},
+{t:'Диски и архивы',i:[
+['df -h','Свободное место на дисках.'],
+['du -sh *','Размер каждой папки в текущем каталоге.'],
+['tar -czf out.tar.gz dir','Создать сжатый архив.'],
+['tar -xzf out.tar.gz','Распаковать архив.']]},
+{t:'Права доступа',i:[
+['chmod 755 script.sh','Владелец: всё; остальные: чтение и запуск.'],
+['chmod +x script.sh','Сделать файл исполняемым.'],
+['chown user:group file','Сменить владельца и группу.']]}
+];
+
+const RXT=[
+{t:'Классы символов',i:[
+['.','Любой символ, кроме перевода строки','a.c → abc'],
+['\\d  \\w  \\s','Цифра, буква/цифра/_, пробельный символ','\\d+ → 2025'],
+['\\D  \\W  \\S','Противоположные классы','\\S+ → слово'],
+['[abc]','Один из перечисленных символов','[aeiou]'],
+['[^abc]','Любой символ, кроме перечисленных','[^0-9]'],
+['[a-z]','Диапазон символов','[A-Za-z]']]},
+{t:'Квантификаторы',i:[
+['*','Ноль или больше','ab* → a, ab, abb'],
+['+','Один или больше','\\d+ → 7, 42'],
+['?','Ноль или один','colou?r'],
+['{n,m}','От n до m повторений','\\d{2,4}'],
+['*?  +?','Ленивый вариант: минимум символов','<.+?>']]},
+{t:'Группы и позиции',i:[
+['(…)','Захватывающая группа','(\\d+)-(\\d+)'],
+['(?:…)','Группа без захвата','(?:ab)+'],
+['(?<name>…)','Именованная группа','(?<year>\\d{4})'],
+['a|b','Альтернатива: a или b','cat|dog'],
+['^  $','Начало и конец строки','^\\d+$'],
+['\\b','Граница слова','\\bcat\\b']]},
+{t:'Проверки вперёд и назад',i:[
+['(?=…)','За текущим местом идёт …','\\d+(?=€)'],
+['(?!…)','За текущим местом НЕ идёт …','\\d+(?!€)'],
+['(?<=…)','Перед текущим местом идёт …','(?<=\\$)\\d+'],
+['(?<!…)','Перед текущим местом НЕ идёт …','(?<!\\$)\\b\\d+']]},
+{t:'Флаги',i:[
+['g','Искать все совпадения, а не только первое',''],
+['i','Не различать регистр',''],
+['m','^ и $ работают на каждой строке',''],
+['s','Точка совпадает и с переводом строки',''],
+['u','Полная поддержка Unicode','']]}
+];
+const RXP=[
+['Email (простая проверка)','^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$','Подходит для первичной проверки формы.'],
+['IPv4-адрес','^(?:(?:25[0-5]|2[0-4]\\d|1?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1?\\d?\\d)$','Каждая часть от 0 до 255.'],
+['Дата ГГГГ-ММ-ДД','^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$','Проверяет формат, а не существование даты.'],
+['HEX-цвет','^#(?:[0-9a-fA-F]{3}){1,2}$','#fff или #1a2b3c.'],
+['Телефон РФ','^\\+7\\d{10}$','Формат +79991234567.'],
+['Ссылка http(s)','https?:\\/\\/[^\\s/$.?#][^\\s]*','Ищет адреса внутри текста.']];
+
+const SQLG=[
+{t:'Выборка данных',i:[
+['SELECT name, price\nFROM products\nWHERE price > 100\nORDER BY price DESC\nLIMIT 10;','Дорогие товары, десять штук.'],
+['SELECT DISTINCT city FROM customers;','Уникальные города.'],
+['SELECT name FROM users\nWHERE id IN (SELECT user_id FROM orders);','Подзапрос: пользователи с заказами.'],
+['WITH recent AS (\n  SELECT * FROM orders\n  WHERE created_at > NOW() - INTERVAL \'7 days\'\n)\nSELECT COUNT(*) FROM recent;','CTE: именованный промежуточный результат.']]},
+{t:'Агрегация',i:[
+['SELECT category, COUNT(*) AS cnt, AVG(price) AS avg_price\nFROM products\nGROUP BY category\nHAVING COUNT(*) > 5;','Группы, в которых больше пяти товаров.'],
+['SELECT SUM(amount) FROM payments;','Сумма по столбцу.']]},
+{t:'Оконные функции',i:[
+['SELECT name, salary,\n  RANK() OVER (PARTITION BY dept ORDER BY salary DESC) AS rnk\nFROM employees;','Место по зарплате внутри отдела.'],
+['SELECT day, SUM(amount) OVER (ORDER BY day) AS running_total\nFROM sales;','Нарастающий итог по дням.'],
+['SELECT day, value - LAG(value) OVER (ORDER BY day) AS diff\nFROM metrics;','Разница с предыдущей строкой.']]},
+{t:'Изменение данных',i:[
+['INSERT INTO users (name, email)\nVALUES (\'Анна\', \'anna@example.com\');','Добавить строку.'],
+['UPDATE users SET active = false\nWHERE last_login < \'2025-01-01\';','Обновить строки по условию.'],
+['DELETE FROM sessions WHERE expires_at < NOW();','Удалить просроченные сессии.'],
+['INSERT INTO users (email, name) VALUES (\'a@b.c\', \'Анна\')\nON CONFLICT (email) DO UPDATE SET name = EXCLUDED.name;','Вставить или обновить (PostgreSQL, SQLite).']]},
+{t:'Индексы и транзакции',i:[
+['CREATE INDEX idx_orders_customer ON orders (customer_id);','Ускорить поиск и соединения по столбцу.'],
+['EXPLAIN ANALYZE SELECT * FROM orders WHERE customer_id = 42;','План выполнения и реальное время (PostgreSQL).'],
+['BEGIN;\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\nCOMMIT;','Перевод денег атомарно: всё или ничего.']]}
+];
+const JOINS=[
+['INNER JOIN','Только строки, совпавшие в обеих таблицах.','inner'],
+['LEFT JOIN','Все строки левой и совпадения справа.','left'],
+['RIGHT JOIN','Все строки правой и совпадения слева.','right'],
+['FULL JOIN','Все строки обеих таблиц.','full']];
+
+const INDEX=[];
+SORTS.forEach(r=>INDEX.push({s:'bigo',t:r[0],d:'Сортировка, в среднем '+r[2]}));
+DS.forEach(r=>INDEX.push({s:'bigo',t:r[0],d:'Структура данных, поиск '+r[2]}));
+HTTP.forEach(r=>INDEX.push({s:'http',t:r[0]+' '+r[1],d:r[2]}));
+GIT.forEach(g=>g.i.forEach(x=>INDEX.push({s:'git',t:x[0],d:x[1]})));
+LINUX.forEach(g=>g.i.forEach(x=>INDEX.push({s:'linux',t:x[0],d:x[1]})));
+RXT.forEach(g=>g.i.forEach(x=>INDEX.push({s:'regex',t:x[0],d:x[1]})));
+RXP.forEach(x=>INDEX.push({s:'regex',t:x[0],d:x[2]}));
+SQLG.forEach(g=>g.i.forEach(x=>INDEX.push({s:'sql',t:x[0].split('\n')[0],d:x[1]})));
+JOINS.forEach(x=>INDEX.push({s:'sql',t:x[0],d:x[1]}));
+const countOf=id=>INDEX.filter(x=>x.s===id).length;
+
+const SQLK=/\b(SELECT|DISTINCT|FROM|WHERE|GROUP BY|HAVING|ORDER BY|LIMIT|JOIN|ON|AS|WITH|OVER|PARTITION BY|INSERT INTO|VALUES|UPDATE|SET|DELETE|CREATE INDEX|EXPLAIN ANALYZE|BEGIN|COMMIT|IN|NOT|NULL|CONFLICT|DO|COUNT|SUM|AVG|RANK|LAG|NOW|INTERVAL|DESC|ASC|false|true)\b/g;
+const hlSql=s=>esc(s).replace(/('[^']*')/g,'<i class="s">$1</i>').replace(SQLK,'<i class="k">$1</i>');
+const hlSh=s=>{let t=esc(s);t=t.replace(/("[^"]*"|'[^']*')/g,'<i class="s">$1</i>');t=t.replace(/(^|\s)(--?[a-zA-Z][\w-]*)/g,'$1<i class="f">$2</i>');return t.replace(/^(git)( [a-z][\w-]*)?|^([\w./-]+)/,(m,a,b,c)=>c?`<i class="c">${c}</i>`:`<i class="c">${a}</i>${b?`<i class="sub">${b}</i>`:''}`)};
+
+const TC=['#34d399','#a3e635','#fbbf24','#fb923c','#f87171'];
+const tier=s=>s==='—'?-1:s.includes('2ⁿ')?4:s.includes('²')?3:s.includes('n log n')?2:(s==='O(1)'||s==='O(log n)')?0:1;
+const bd=s=>{const t=tier(s);return t<0?'<span class="nil">—</span>':`<span class="bd" style="--t:${TC[t]}">${esc(s)}</span>`};
+
+const grp=(title,html,col,small)=>`<section class="grp"${col?` style="--gc:${col}"`:''}><h3 class="gh"><i></i>${esc(title)}${small?` <small>${small}</small>`:''}</h3>${html}</section>`;
+const cmdItem=(c,d,h,k)=>`<div class="item cmd" style="animation-delay:${(k%8)*40}ms" data-t="${at((c+' '+d).toLowerCase())}"><div class="cc"><code>${h(c)}</code><button class="cp" data-copy="${encodeURIComponent(c)}" title="Копировать">${svg('copy')}</button></div><p>${esc(d)}</p></div>`;
+const cmdGroups=(G,h)=>{let k=0;return G.map(g=>grp(g.t,`<div class="grid g2">${g.i.map(x=>cmdItem(x[0],x[1],h,k++)).join('')}</div>`,null,g.i.length+' шт.')).join('')};
+const table=(head,rows)=>`<div class="tw"><table><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+
+function sci(l){const e=Math.floor(l),m=Math.pow(10,l-e);return `≈ ${m.toFixed(1).replace('.',',')}·10<sup>${e}</sup>`}
+function fmtOps(v){return v<1e7?Math.round(v).toLocaleString('ru-RU'):sci(Math.log10(v))}
+
+function chartSvg(mini){
+  const W=640,H=mini?290:380,P=mini?{l:30,r:12,t:12,b:26}:{l:50,r:20,t:18,b:42};
+  const xm=12,ym=100;
+  const X=x=>P.l+(x-1)/(xm-1)*(W-P.l-P.r),Y=y=>H-P.b-y/ym*(H-P.t-P.b);
+  const F=[['O(1)',n=>1,'#34d399'],['O(log n)',n=>Math.log2(n),'#22d3ee'],['O(n)',n=>n,'#818cf8'],['O(n log n)',n=>n*Math.log2(n),'#e879f9'],['O(n²)',n=>n*n,'#fb923c'],['O(2ⁿ)',n=>Math.pow(2,n),'#f87171']];
+  let g='';
+  for(let y=0;y<=ym;y+=25){g+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(y)}" y2="${Y(y)}" stroke="rgba(255,255,255,.08)"/><text x="${P.l-8}" y="${Y(y)+4}" fill="#98a2c8" font-size="11" text-anchor="end">${y}</text>`}
+  [1,4,8,12].forEach(x=>{g+=`<line y1="${P.t}" y2="${H-P.b}" x1="${X(x)}" x2="${X(x)}" stroke="rgba(255,255,255,.05)"/><text x="${X(x)}" y="${H-P.b+18}" fill="#98a2c8" font-size="11" text-anchor="middle">${x}</text>`});
+  g+=`<text x="${W-P.r}" y="${H-6}" fill="#98a2c8" font-size="11" text-anchor="end">n — размер входных данных</text>`;
+  if(!mini)g+=`<text x="14" y="${P.t+6}" fill="#98a2c8" font-size="11">операции</text>`;
+  const cid='cp'+(mini?'m':'f');
+  let paths='';
+  F.forEach((f,i)=>{let d='';for(let x=1;x<=xm+1e-9;x+=.05){d+=(d?'L':'M')+X(x).toFixed(1)+' '+Y(f[1](x)).toFixed(1)}
+    paths+=`<path class="curve" pathLength="1" d="${d}" stroke="${f[2]}" style="animation-delay:${i*.18}s;filter:drop-shadow(0 0 6px ${f[2]})"/>`});
+  const leg=mini?'':`<div class="legend">${F.map(f=>`<span><i style="background:${f[2]}"></i><code>${f[0]}</code></span>`).join('')}</div>`;
+  return `<svg viewBox="0 0 ${W} ${H}"><defs><clipPath id="${cid}"><rect x="${P.l}" y="${P.t}" width="${W-P.l-P.r}" height="${H-P.t-P.b}"/></clipPath></defs>${g}<g clip-path="url(#${cid})">${paths}</g></svg>${leg}`;
+}
+
+function venn(t,c){
+  const id='v'+t,A='<circle cx="30" cy="24" r="17"',B='<circle cx="50" cy="24" r="17"';
+  const fill=t==='inner'?`${B} fill="${c}" clip-path="url(#${id})"/>`:t==='left'?`${A} fill="${c}"/>`:t==='right'?`${B} fill="${c}"/>`:`${A} fill="${c}"/>${B} fill="${c}"/>`;
+  return `<svg viewBox="0 0 80 48"><defs><clipPath id="${id}">${A}/></clipPath></defs><g fill-opacity=".82">${fill}</g>${A} fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.4"/>${B} fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.4"/></svg>`;
+}
+
+const VIEW={
+bigo(){
+  const NS=[10,100,1000,1000000];
+  const OPS=[['O(1)',n=>0],['O(log n)',n=>Math.log10(Math.log2(n))],['O(n)',n=>Math.log10(n)],['O(n log n)',n=>Math.log10(n*Math.log2(n))],['O(n²)',n=>2*Math.log10(n)],['O(2ⁿ)',n=>n*Math.log10(2)]];
+  const ops=OPS.map(o=>`<tr class="item" data-t="${at(o[0].toLowerCase())}"><td>${bd(o[0])}</td>${NS.map(n=>{const l=o[1](n);return `<td class="mono">${l<7?Math.round(Math.pow(10,l)).toLocaleString('ru-RU'):sci(l)}</td>`}).join('')}</tr>`).join('');
+  const ds=DS.map(r=>`<tr class="item" data-t="${at(r[0].toLowerCase())}"><td>${esc(r[0])}</td>${r.slice(1).map(v=>`<td>${bd(v)}</td>`).join('')}</tr>`).join('');
+  const so=SORTS.map(r=>`<tr class="item" data-t="${at(r[0].toLowerCase()+' сортировка')}"><td>${esc(r[0])}</td><td>${bd(r[1])}</td><td>${bd(r[2])}</td><td>${bd(r[3])}</td><td>${bd(r[4])}</td><td class="${r[5]?'yes':'no'}">${r[5]?'✔ да':'✘ нет'}</td></tr>`).join('');
+  const tips=TIPS.map((t,i)=>`<div class="panel item" data-t="${at((t[0]+' '+t[1]).toLowerCase())}"><h3><i></i>${esc(t[0])}</h3><p>${esc(t[1])}</p></div>`).join('');
+  return `<div class="chart">${chartSvg(false)}</div>`+
+  grp('Сколько операций выполнит алгоритм',table(['Сложность','n = 10','n = 100','n = 1 000','n = 1 000 000'],ops))+
+  grp('Структуры данных',table(['Структура','Доступ','Поиск','Вставка','Удаление'],ds),null,'среднее значение; у хеш-таблицы и неуравновешенного дерева в худшем случае O(n)')+
+  grp('Алгоритмы сортировки',table(['Алгоритм','Лучший','Средний','Худший','Память','Устойчив'],so),null,'n — число элементов, k — диапазон значений, d — число разрядов')+
+  grp('Что выбрать',`<div class="grid g3">${tips}</div>`);
+},
+http(){
+  const pills=`<div class="sec-nav"><button class="pill on" data-k="all">Все</button>${[1,2,3,4,5].map(k=>`<button class="pill" data-k="${k}" style="--c:${HC[k]}"><i></i>${k}xx</button>`).join('')}</div>`;
+  const body=[1,2,3,4,5].map(k=>grp(`${k}xx — ${HN[k]}`,`<div class="grid g2">${HTTP.filter(h=>Math.floor(h[0]/100)===k).map((h,i)=>`<div class="item hc" data-k="${k}" style="--h:${HC[k]};animation-delay:${i*40}ms" data-t="${at((h[0]+' '+h[1]+' '+h[2]).toLowerCase())}"><b class="mono">${h[0]}</b><div><h4>${esc(h[1])}</h4><p>${esc(h[2])}</p></div></div>`).join('')}</div>`,HC[k])).join('');
+  return pills+body;
+},
+git(){return cmdGroups(GIT,hlSh)},
+linux(){return cmdGroups(LINUX,hlSh)},
+regex(){
+  const tester=`<div class="panel tester"><h3><i></i>Живой тестер</h3><div class="row"><div><label>Шаблон</label><input id="rx" spellcheck="false" value="\\b(\\w+)@(\\w+)\\.com\\b"></div><div><label>Флаги</label><input id="fl" spellcheck="false" value="gi"></div></div><label>Текст</label><textarea id="tx" rows="4" spellcheck="false">Напишите на anna@example.com или bob@site.com — ответим быстро.</textarea><div class="out" id="out"></div><div class="rxi" id="rxi"></div></div>`;
+  const toks=RXT.map(g=>grp(g.t,table(['Запись','Значение','Пример'],g.i.map(x=>`<tr class="item" data-t="${at((x[0]+' '+x[1]+' '+x[2]).toLowerCase())}"><td><code>${esc(x[0])}</code></td><td>${esc(x[1])}</td><td><code>${esc(x[2])}</code></td></tr>`).join('')))).join('');
+  let k=0;
+  const pats=grp('Готовые шаблоны',`<div class="grid g2">${RXP.map(p=>cmdItem(p[1],p[0]+' — '+p[2],esc,k++)).join('')}</div>`);
+  return tester+toks+pats;
+},
+sql(){
+  const v=`<div class="venns">${JOINS.map(j=>`<div class="vn item" data-t="${at((j[0]+' '+j[1]).toLowerCase())}">${venn(j[2],'#ffd166')}<h4>${j[0]}</h4><p>${esc(j[1])}</p></div>`).join('')}</div>`;
+  return grp('Типы JOIN',v)+cmdGroups(SQLG,hlSql);
+}
+};
+
+let pendingQ='',route=[];
+const app=$('#app');
+
+function home(){
+  const sample=['<span class="k">const</span> t = <span class="c">measure</span>(sort, data)','<span class="s">// O(n log n) в среднем</span>','<span class="k">git</span> <span class="sub">rebase</span> <span class="f">-i</span> HEAD~3','<span class="k">SELECT</span> * <span class="k">FROM</span> orders <span class="k">WHERE</span> id = <span class="f">42</span>'];
+  return `<section class="hero"><div>
+<span class="chip"><i></i>Справочник разработчика · офлайн</span>
+<h1 class="big">DevAtlas</h1>
+<p class="lead">Алгоритмы, HTTP, Git, терминал, регулярные выражения и SQL — всё, что нужно в работе, собрано в одном красивом месте и находится за пару секунд.</p>
+<div class="cta"><a class="btn pri" href="#/menu">${svg('book')}Открыть справочник</a><a class="btn" href="#/about">О приложении</a></div>
+<div class="stats"><div class="stat"><b data-n="6">0</b><span>разделов</span></div><div class="stat"><b data-n="${INDEX.length}">0</b><span>записей</span></div><div class="stat"><b data-n="${GIT.reduce((a,g)=>a+g.i.length,0)+LINUX.reduce((a,g)=>a+g.i.length,0)}">0</b><span>команд</span></div></div>
+</div>
+<div class="stage"><div class="show" id="show">
+<div class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="mono">complexity.chart</span></div>
+${chartSvg(true)}
+<div class="codeblk mono">${sample.join('<br>')}</div>
+<div class="float f1" style="color:#34d399">200 OK</div><div class="float f2" style="color:#e879f9">O(n log n)</div><div class="float f3" style="color:#ff8a5c">git rebase</div>
+</div></div></section>`;
+}
+
+function about(){
+  return `<div class="page-h"><h2>О <span class="grad">приложении</span></h2><p>Всё, что нужно знать о DevAtlas: что внутри, как им пользоваться и на чём оно сделано.</p></div>
+<div class="grid g2">
+<div class="panel"><h3><i></i>Что это</h3><p>DevAtlas — офлайн-справочник для разработчиков. Шесть разделов собраны так, чтобы нужный ответ находился быстрее, чем открывается поисковик: короткие пояснения, готовые команды и наглядные схемы.</p></div>
+<div class="panel"><h3><i></i>Разделы</h3><ul>${SECTIONS.map(s=>`<li class="dl"><i style="background:${s.c};box-shadow:0 0 10px ${s.c}"></i><div><b>${s.n}</b><span>${countOf(s.id)} записей</span></div></li>`).join('')}</ul></div>
+<div class="panel"><h3><i></i>Возможности</h3><ul><li>Общий поиск сразу по всем разделам</li><li>Фильтр внутри каждого раздела</li><li>Копирование команд одним нажатием</li><li>График роста сложности и сравнительные таблицы</li><li>Живой тестер регулярных выражений с подсветкой</li><li>Диаграммы JOIN для SQL</li><li>Работает без интернета и без установки</li></ul></div>
+<div class="panel"><h3><i></i>Как пользоваться</h3><ul class="steps"><li>Нажмите «Справочник» и выберите раздел.</li><li>Или введите запрос в общий поиск: найдутся совпадения во всех разделах.</li><li>Внутри раздела сузьте список фильтром и скопируйте нужное.</li></ul></div>
+<div class="panel"><h3><i></i>Горячие клавиши</h3><ul><li><kbd>/</kbd> перейти к поиску</li><li><kbd>1</kbd>–<kbd>6</kbd> открыть раздел в меню</li><li><kbd>Esc</kbd> вернуться назад</li></ul></div>
+<div class="panel"><h3><i></i>Технологии</h3><div class="tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>SVG</span><span>Canvas</span><span>Без библиотек</span><span>Один файл</span></div><p style="margin-top:16px">Вся графика — стекло, свечение, анимации и графики — построена кодом, внешних файлов и шрифтов не нужно.</p></div>
+<div class="panel" style="grid-column:1/-1"><h3><i></i>О данных</h3><p>Оценки сложности даны для типичных реализаций и среднего случая, если не сказано иное. Команды Git рассчитаны на версию 2.23 и новее (switch, restore). Команды терминала — для GNU/Linux. Примеры SQL записаны в синтаксисе PostgreSQL, в других СУБД детали могут отличаться. Перед выполнением разрушающих команд, например rm -rf и git reset --hard, всегда проверяйте путь и состояние репозитория.</p></div>
+</div>
+<div class="cta"><a class="btn pri" href="#/menu">${svg('book')}Открыть справочник</a><a class="btn" href="#/">На главную</a></div>`;
+}
+
+function menu(){
+  return `<div class="page-h"><h2>Справочник <span class="grad">разработчика</span></h2><p>Выберите раздел или найдите нужное сразу во всех разделах.</p></div>
+<div class="sbox"><svg viewBox="0 0 24 24">${IC.search}</svg><input id="gq" placeholder="Поиск по всему справочнику: rebase, 404, JOIN, O(n)…" autocomplete="off"><kbd>/</kbd></div>
+<div id="gres"></div>
+<div class="grid g3" id="cards">${SECTIONS.map((s,i)=>`<a class="card" href="#/s/${s.id}" style="--c:${s.c};animation-delay:${i*70}ms"><span class="num mono">${i+1}</span><div class="ico">${svg(s.id)}</div><h3>${s.n}</h3><p>${s.d}</p><div class="meta"><b>${countOf(s.id)} записей</b><div class="arrow">${svg('arrow')}</div></div></a>`).join('')}</div>`;
+}
+
+function section(id){
+  const s=SEC[id];
+  const nav=SECTIONS.map(x=>`<a class="pill ${x.id===id?'on':''}" href="#/s/${x.id}" style="--c:${x.c}"><i></i>${x.n}</a>`).join('');
+  const q=pendingQ;pendingQ='';
+  return `<div style="--c:${s.c}"><div class="page-h"><button class="back" data-go="#/menu">${svg('back')}Все разделы</button><h2><span class="grad">${s.n}</span></h2><p>${s.d}</p></div>
+<div class="sec-nav">${nav}</div>
+<div class="sbox"><svg viewBox="0 0 24 24">${IC.search}</svg><input id="q" placeholder="Фильтр внутри раздела…" value="${at(q)}" autocomplete="off"><kbd>/</kbd></div>
+${VIEW[id]()}<div class="empty" id="empty" hidden>Ничего не найдено. Попробуйте другой запрос.</div></div>`;
+}
+
+function applyFilter(){
+  const q=($('#q')?.value||'').trim().toLowerCase();
+  const k=$('.pill.on[data-k]')?.dataset.k;
+  let n=0;
+  $$('.item').forEach(el=>{const ok=(!q||el.dataset.t.includes(q))&&(!k||k==='all'||el.dataset.k===k);el.hidden=!ok;if(ok)n++});
+  $$('.grp').forEach(g=>{if(g.querySelector('.item'))g.hidden=![...g.querySelectorAll('.item')].some(i=>!i.hidden)});
+  const e=$('#empty');if(e)e.hidden=n>0;
+}
+
+function runRx(){
+  const p=$('#rx').value,f=$('#fl').value.replace(/[^dgimsuvy]/g,''),t=$('#tx').value,o=$('#out'),m=$('#rxi');
+  if(!p){o.textContent=t;m.innerHTML='Введите шаблон.';return}
+  try{
+    const r=new RegExp(p,f.includes('g')?f:f+'g');
+    let h='',last=0,c=0,groups=[];
+    for(const x of t.matchAll(r)){
+      if(++c>500)break;
+      h+=esc(t.slice(last,x.index))+'<mark>'+esc(x[0])+'</mark>';
+      last=x.index+x[0].length;
+      if(x.length>1&&groups.length<6)groups.push(x.slice(1).map(v=>v===undefined?'∅':esc(v)).join(' · '));
+    }
+    o.innerHTML=h+esc(t.slice(last));
+    m.innerHTML=`Совпадений: <b>${Math.min(c,500)}</b>`+(groups.length?`<br>Группы: ${groups.map((g,i)=>`<b>${i+1}</b>) ${g}`).join(' &nbsp; ')}`:'');
+  }catch(e){o.textContent=t;m.innerHTML=`<span class="err">Ошибка шаблона: ${esc(e.message)}</span>`}
+}
+
+function countUp(){
+  $$('[data-n]').forEach(el=>{const to=+el.dataset.n,t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/1100);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)});
+}
+
+function render(){
+  const h=(location.hash||'#/').slice(1);
+  route=h.split('/').filter(Boolean);
+  let html,hook;
+  if(route[0]==='about')html=about();
+  else if(route[0]==='menu'){html=menu();hook=()=>{$('#gq').addEventListener('input',onGlobal)}}
+  else if(route[0]==='s'&&SEC[route[1]]){html=section(route[1]);hook=()=>{
+    $('#q').addEventListener('input',applyFilter);
+    $$('.pill[data-k]').forEach(b=>b.addEventListener('click',()=>{$$('.pill[data-k]').forEach(x=>x.classList.remove('on'));b.classList.add('on');applyFilter()}));
+    if(route[1]==='regex'){['#rx','#fl','#tx'].forEach(s=>$(s).addEventListener('input',runRx));runRx()}
+    applyFilter();
+  }}
+  else{html=home();hook=countUp;route=[]}
+  app.innerHTML=`<div class="view">${html}</div>`;
+  hook&&hook();
+  window.scrollTo(0,0);
+  const cur=route[0]==='about'?'about':route[0]==='menu'||route[0]==='s'?'menu':'home';
+  $$('nav a').forEach(a=>a.classList.toggle('on',a.dataset.r===cur));
+}
+
+function onGlobal(e){
+  const q=e.target.value.trim().toLowerCase(),box=$('#gres'),cards=$('#cards');
+  if(!q){box.innerHTML='';cards.hidden=false;return}
+  const r=INDEX.filter(x=>(x.t+' '+x.d).toLowerCase().includes(q)).slice(0,14);
+  cards.hidden=true;
+  box.innerHTML=r.length?r.map(x=>`<a class="res" href="#/s/${x.s}" style="--c:${SEC[x.s].c}"><i></i><code>${esc(x.t)}</code><span>${esc(x.d)}</span><em>${SEC[x.s].n}</em></a>`).join(''):'<div class="empty">Ничего не найдено. Попробуйте другой запрос.</div>';
+}
+
+function toast(){const t=$('#toast');t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),1400)}
+
+document.addEventListener('click',e=>{
+  const cp=e.target.closest('.cp');
+  if(cp){const v=decodeURIComponent(cp.dataset.copy);
+    const done=()=>toast();
+    if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(v).then(done,done);
+    else{const a=document.createElement('textarea');a.value=v;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove();done()}
+    return}
+  const go=e.target.closest('[data-go]');if(go){location.hash=go.dataset.go;return}
+  const res=e.target.closest('.res');if(res)pendingQ=$('#gq').value.trim();
+});
+
+document.addEventListener('mousemove',e=>{
+  const g=$('#glow');g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';
+  const c=e.target.closest&&e.target.closest('.card');
+  if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')}
+  const s=$('#show');
+  if(s){const r=s.getBoundingClientRect(),dx=(e.clientX-(r.left+r.width/2))/innerWidth,dy=(e.clientY-(r.top+r.height/2))/innerHeight;s.style.transform=`rotateY(${dx*14}deg) rotateX(${-dy*14}deg)`}
+});
+
+document.addEventListener('keydown',e=>{
+  const tag=document.activeElement.tagName,typing=tag==='INPUT'||tag==='TEXTAREA';
+  if(e.key==='Escape'){
+    if(typing)document.activeElement.blur();
+    if(route[0]==='s')location.hash='#/menu';
+    else if(route[0]==='menu'||route[0]==='about')location.hash='#/';
+    return}
+  if(typing||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==='/'){const i=$('#q')||$('#gq');if(i){e.preventDefault();i.focus()}return}
+  if(route[0]==='menu'&&/^[1-6]$/.test(e.key))location.hash='#/s/'+SECTIONS[+e.key-1].id;
+});
+
+(function(){
+  const c=$('#fx'),x=c.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1);
+  let w,h,P=[];
+  const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size(){
+    w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';x.setTransform(dpr,0,0,dpr,0,0);
+    P=Array.from({length:Math.round(w*h/20000)},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.3+.4}));
+  }
+  function tick(){
+    x.clearRect(0,0,w,h);
+    for(const p of P){
+      if(!calm){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0}
+      x.fillStyle='rgba(190,205,255,.55)';x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);x.fill();
+    }
+    for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){
+      const dx=P[i].x-P[j].x,dy=P[i].y-P[j].y,d=dx*dx+dy*dy;
+      if(d<12100){x.strokeStyle=`rgba(150,170,255,${.16*(1-d/12100)})`;x.beginPath();x.moveTo(P[i].x,P[i].y);x.lineTo(P[j].x,P[j].y);x.stroke()}
+    }
+    if(!calm)requestAnimationFrame(tick);
+  }
+  size();tick();
+  addEventListener('resize',()=>{size();if(calm)tick()});
+})();
+
+addEventListener('hashchange',render);
+render();
+</script>
+</body>
+</html>
